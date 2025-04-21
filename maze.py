@@ -127,3 +127,65 @@ class Maze:
     for col in self._cells:
       for cell in col:
         cell.visited = False
+        
+  def solve(self):
+    # Reset all cells to unvisited before solving
+    self._reset_cells_visited()
+    # Start solving from the entrance (top-left cell)
+    return self._solve_r(0, 0)
+    
+  def _solve_r(self, i, j):
+    # Call animate to visualize the solving process
+    self._animate()
+    
+    # Mark the current cell as visited
+    self._cells[i][j].visited = True
+    
+    # If we reached the end cell (bottom-right), we solved the maze
+    if i == self._num_cols - 1 and j == self._num_rows - 1:
+      return True
+    
+    # Try each direction: up, right, down, left
+    
+    # Up (j-1)
+    if j > 0 and not self._cells[i][j-1].visited and not self._cells[i][j].has_top_wall:
+      # Draw a move to the next cell
+      self._cells[i][j].draw_move(self._cells[i][j-1])
+      # Recursively try to solve from the next cell
+      if self._solve_r(i, j-1):
+        return True
+      # If that direction didn't work, undo the move
+      self._cells[i][j].draw_move(self._cells[i][j-1], True)
+    
+    # Right (i+1)
+    if i < self._num_cols - 1 and not self._cells[i+1][j].visited and not self._cells[i][j].has_right_wall:
+      # Draw a move to the next cell
+      self._cells[i][j].draw_move(self._cells[i+1][j])
+      # Recursively try to solve from the next cell
+      if self._solve_r(i+1, j):
+        return True
+      # If that direction didn't work, undo the move
+      self._cells[i][j].draw_move(self._cells[i+1][j], True)
+    
+    # Down (j+1)
+    if j < self._num_rows - 1 and not self._cells[i][j+1].visited and not self._cells[i][j].has_bottom_wall:
+      # Draw a move to the next cell
+      self._cells[i][j].draw_move(self._cells[i][j+1])
+      # Recursively try to solve from the next cell
+      if self._solve_r(i, j+1):
+        return True
+      # If that direction didn't work, undo the move
+      self._cells[i][j].draw_move(self._cells[i][j+1], True)
+    
+    # Left (i-1)
+    if i > 0 and not self._cells[i-1][j].visited and not self._cells[i][j].has_left_wall:
+      # Draw a move to the next cell
+      self._cells[i][j].draw_move(self._cells[i-1][j])
+      # Recursively try to solve from the next cell
+      if self._solve_r(i-1, j):
+        return True
+      # If that direction didn't work, undo the move
+      self._cells[i][j].draw_move(self._cells[i-1][j], True)
+    
+    # If none of the directions worked, this cell is a dead end
+    return False
