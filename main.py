@@ -1,6 +1,7 @@
 from graphics import Window
 from maze import Maze
 import sys
+import time
 
 def main():
     num_rows = 12
@@ -17,6 +18,8 @@ def main():
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
     print("maze created")
     
+    # add a delay of 3 seconds
+    time.sleep(3)
     # Solve the maze
     is_solved = maze.solve()
     
