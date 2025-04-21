@@ -11,7 +11,8 @@ class Cell:
     self._x2 = None
     self._y2 = None
     self._win = win
-
+    self.visited = False
+    
   def draw(self, x1, y1, x2, y2):
     if self._win is None:
       return
@@ -58,3 +59,4 @@ class Cell:
     fill_color = "red" if undo else "gray"
     line = Line(Point(x_center1, y_center1), Point(x_center2, y_center2))
     self._win.draw_line(line, fill_color)
+    
