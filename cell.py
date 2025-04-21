@@ -34,15 +34,15 @@ class Cell:
       
   def draw_move(self, to_cell, undo=False):
       # Ensure both cells have been drawn
-      if None in (self._x1, self._y1, self._x2, self._y2,
-                  to_cell._x1, to_cell._y1, to_cell._x2, to_cell._y2):
-          raise ValueError("Both cells must be initialized with draw() before drawing a move.")
+    if None in (self._x1, self._y1, self._x2, self._y2,
+                to_cell._x1, to_cell._y1, to_cell._x2, to_cell._y2):
+      raise ValueError("Both cells must be initialized with draw() before drawing a move.")
 
-      x_center1 = (self._x1 + self._x2) / 2
-      y_center1 = (self._y1 + self._y2) / 2
-      x_center2 = (to_cell._x1 + to_cell._x2) / 2
-      y_center2 = (to_cell._y1 + to_cell._y2) / 2
+    x_center1 = (self._x1 + self._x2) / 2
+    y_center1 = (self._y1 + self._y2) / 2
+    x_center2 = (to_cell._x1 + to_cell._x2) / 2
+    y_center2 = (to_cell._y1 + to_cell._y2) / 2
 
-      fill_color = "red" if undo else "gray"
-      line = Line(Point(x_center1, y_center1), Point(x_center2, y_center2))
-      self._win.draw_line(line, fill_color)
+    fill_color = "red" if undo else "gray"
+    line = Line(Point(x_center1, y_center1), Point(x_center2, y_center2))
+    self._win.draw_line(line, fill_color)
